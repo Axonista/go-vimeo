@@ -537,6 +537,22 @@ func (s *UsersService) ListVideo(uid string, opt ...CallOption) ([]*Video, *Resp
 	return videos, resp, err
 }
 
+// ListVideoByProject retrieves the users videos from a folder/project
+//
+// Vimeo API docs: https://developer.vimeo.com/api/reference/folders#get_project_videos
+func (s *UsersService) ListVideoByProject(uid, projectID string, opt ...CallOption) ([]*Video, *Response, error) {
+	var u string
+	if uid == "" {
+		u = fmt.Sprintf("me/projects/%s/videos", projectID)
+	} else {
+		u = fmt.Sprintf("users/%s/projects/%s/videos", uid, projectID)
+	}
+
+	videos, resp, err := listVideo(s.client, u, opt...)
+
+	return videos, resp, err
+}
+
 // GetVideo method determines whether a particular user is the owner of the specified video.
 // Passing the empty string will edit authenticated user.
 //
