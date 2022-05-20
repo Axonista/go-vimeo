@@ -112,6 +112,11 @@ func (c *Client) NewRequest(method, urlStr string, body interface{}) (*http.Requ
 		req.Header.Set("Content-Type", "application/json")
 	}
 
+	// adds a personalAccessToken for authentication instead of the default oauth2
+	if c.Config.PersonalAccessToken != "" {
+		req.Header.Set("Authorization", "Bearer "+c.Config.PersonalAccessToken)
+	}
+
 	req.Header.Set("Accept", mediaTypeVersion)
 
 	if c.UserAgent != "" {
