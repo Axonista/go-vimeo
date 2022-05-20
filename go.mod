@@ -1,4 +1,3 @@
-// module github.com/silentsokolov/go-vimeo
-module github.com/Axonista/go-vimeo
+module github.com/silentsokolov/go-vimeo
 
 go 1.13
